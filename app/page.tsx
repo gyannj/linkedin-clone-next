@@ -1,10 +1,27 @@
+import UserInformation from '@/components/UserInformation'
 import React from 'react'
 
 function Home() {
   return (
-   <main>
-    <h1>LinkedInHome</h1>
-   </main>
+   <div className='grid grid-cols-8 mt-5 sm:px-5'>
+    
+    <section className='hidden md:col-span-2 md:inline'>
+      {/* UserInfo */}
+      <UserInformation />
+    </section>
+    
+    
+    <section className='col-span-full md:col-span-6 xl:col-span-4 xl:max-w-xl mx-auto w-full'>
+
+      {/* POST FEED */}
+    </section>
+
+
+    <section className='hidden xl:inline justify-center col-span-2'>
+      {/* Widgets  */}
+
+    </section>
+   </div>
   )
 }
 

@@ -1,7 +1,19 @@
-@tailwind base;
+ @tailwind base;
   @tailwind components;
   @tailwind utilities;
 
+
+  @layer components{
+    .icon{
+      @apply flex flex-col items-center justify-center text-sm font-light
+    }
+    .icon svg{
+      @apply fill-white stroke-gray-300
+    }
+    .icon p{
+      @apply text-gray-400 text-xs
+    }
+  }
   @layer base {
     :root {
       --background: 0 0% 100%;
@@ -73,4 +85,5 @@
     body {
       @apply bg-background text-foreground;
     }
-  }
+  } 
+  
