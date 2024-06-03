@@ -7,6 +7,8 @@ export interface ICommentBase{
 }
 
 export interface IComment extends Document, ICommentBase {
+    // _id: any;
+    // _id: any; //this line
     createdAt: Date;
     updatedAt: Date;
 }

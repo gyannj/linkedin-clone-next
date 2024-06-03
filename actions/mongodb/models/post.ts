@@ -1,7 +1,7 @@
 import { IUser } from "@/types/user";
 import mongoose, {Schema,  Document, models, Model} from "mongoose";
 import { Comment, IComment, ICommentBase } from "@/types/comment";
-import { timeStamp } from "console";
+
 
 export interface IPostBase {
     user: IUser;
@@ -99,3 +99,43 @@ PostSchema.methods.removePost = async function (commentToAdd: ICommentBase)  {
         }
     }
 }
+
+PostSchema.methods.getAllComments = async function() {
+    try {
+        await this.populate({
+            path: "comments",
+            options: {sort: { createdAt: -1}},
+        }
+        );
+        return this.comments;
+    } catch (error) {
+        console.log("error when getting all comments", error);
+    }
+}
+
+PostSchema.statics.getAllPosts = async function () {
+    try {
+      const posts = await this.find()
+        .sort({ createdAt: -1 })
+        .populate({
+          path: "comments",
+  
+          options: { sort: { createdAt: -1 } },
+        })
+        .populate("likes")
+        .lean(); // lean() returns a plain JS object instead of a mongoose document
+  
+      return posts.map((post: IPostDocument) => ({
+        ...post,
+        _id: post._id?.toString(),
+        comments: post.comments?.map((comment: IComment) => ({
+          ...comment,
+          _id: comment._id?.toString(),
+        })),
+      }));
+    } catch (error) {
+      console.log("error when getting all posts", error);
+    }
+  };
+
+export const Post = models.Post as IPostModel || mongoose.model<IPostDocument, IPostModel>("Post",PostSchema)
