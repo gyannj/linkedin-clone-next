@@ -3,14 +3,34 @@ import { useUser } from '@clerk/nextjs'
 // import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 import React, { useRef, useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { ImageIcon } from 'lucide-react';
+import { ImageIcon, XIcon } from 'lucide-react';
 import { Button } from './ui/button';
+import createPostAction from '@/actions/createPostAction';
 
 function PostForm() {
   const ref = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { user } = useUser();
   const [preview, setPreview] = useState<string | null>(null);
+
+  const handlePostAction = async(formData: FormData) => {
+      const formDataCopy = formData;
+      ref?.current?.reset();
+
+      const text= formDataCopy.get("postInput") as string;
+      
+      if(!text.trim()){
+        throw new Error("Post input must be provided!")
+      }
+
+      setPreview(null);
+
+      try {
+        await createPostAction(formDataCopy)
+      } catch (error) {
+        console.log("Error Creating Post: ", error)
+      }
+  }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -19,8 +39,13 @@ function PostForm() {
     }
   };
   return (
-    <div>
-      <form ref={ref} action="">
+    <div className='mb-2'>
+      <form ref={ref} action={(formData) => {
+        //Handle form submission
+          handlePostAction(formData);
+        //Toast
+
+      }} className='p-3 bg-white rounded-lg border'>
         <div className="flex items-center space-x-2">
           <Avatar>
             <AvatarImage src={user?.imageUrl} />
@@ -56,13 +81,21 @@ function PostForm() {
         )}
 
         {/* Preview */}
-        <div>
+        <div className='flex justify-end mt-2'>
           <Button type='button' onClick={()=> fileInputRef.current?.click()}>
             <ImageIcon className="mr-2" size={16} color="currentColor" />
-            Add
+            {preview? "Change": "Add"} image
           </Button>
+
+          {preview && (
+            <Button className='ml-2' variant='outline' type="button" onClick={()=> setPreview(null)}>
+              <XIcon className='mr-2' size={16} color="currentColor"/>
+              Remove Image
+            </Button>
+          )}
         </div>
       </form>
+      <hr className='mt-2 border-gray-300'/>
     </div>
   );
 }
