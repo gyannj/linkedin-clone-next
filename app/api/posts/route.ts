@@ -1,5 +1,5 @@
-import connectDB from "@/actions/mongodb/db";
-import { IPostBase, Post } from "@/actions/mongodb/models/post";
+import connectDB from "@/mongodb/db";
+import { IPostBase, Post } from "@/mongodb/models/post";
 import { IUser } from "@/types/user";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";

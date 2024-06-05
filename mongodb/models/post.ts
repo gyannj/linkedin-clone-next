@@ -76,7 +76,7 @@ PostSchema.methods.unlikePost = async function(userId: string) {
 
 PostSchema.methods.removePost = async function ()  {
     try {
-        await this.model.deleteOne({ _id: this._id });
+        await this.model("Post").deleteOne({ _id: this._id });
     } catch (error) {
         if (error instanceof Error) {
             throw new Error(`Error removing post: ${error.message}`);
@@ -85,7 +85,7 @@ PostSchema.methods.removePost = async function ()  {
         }
     }
 }
-PostSchema.methods.removePost = async function (commentToAdd: ICommentBase)  {
+PostSchema.methods.commentOnPost = async function (commentToAdd: ICommentBase)  {
     try {
         const comment = await Comment.create(commentToAdd);
         this.comments.push(comment._id);
@@ -130,7 +130,7 @@ PostSchema.statics.getAllPosts = async function () {
         _id: post._id?.toString(),
         comments: post.comments?.map((comment: IComment) => ({
           ...comment,
-          _id: comment._id?.toString(),
+          _id: comment._id.toString(),
         })),
       }));
     } catch (error) {
@@ -138,4 +138,4 @@ PostSchema.statics.getAllPosts = async function () {
     }
   };
 
-export const Post = models.Post as IPostModel || mongoose.model<IPostDocument, IPostModel>("Post",PostSchema)
+export const Post =( models.Post as IPostModel )|| mongoose.model<IPostDocument, IPostModel>("Post",PostSchema)

@@ -3,7 +3,7 @@
 import { IUser } from '@/types/user';
 import { currentUser } from '@clerk/nextjs/server'
 import React from 'react'
-import { Post } from './mongodb/models/post';
+import { Post } from '@/mongodb/models/post';
 import { AddPostRequestBody } from '@/app/api/posts/route';
 
 async function createPostAction(formData: FormData) {
