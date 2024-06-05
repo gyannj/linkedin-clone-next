@@ -32,6 +32,8 @@ const userDB: IUser = {
   //Upload the image if available
  try {
   if(image.size>0){
+
+    
     const body: AddPostRequestBody ={
       user: userDB,
       text: postInput,
