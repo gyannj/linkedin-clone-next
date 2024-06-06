@@ -1,3 +1,4 @@
+import PostFeed from '@/components/PostFeed';
 import PostForm from '@/components/PostForm'
 import UserInformation from '@/components/UserInformation'
 import connectDB from '@/mongodb/db';
@@ -9,7 +10,7 @@ export const revalidate = 0;
 
 async function Home() {
   await connectDB();
-  const posts = Post.getAllPosts();
+  const posts = await Post.getAllPosts();
   return (
    <div className='grid grid-cols-8 mt-5 sm:px-5'>
     
@@ -27,6 +28,8 @@ async function Home() {
 
       </SignedIn>
       {/* POST FEED */}
+
+      <PostFeed posts={posts}/>
       
     </section>
 

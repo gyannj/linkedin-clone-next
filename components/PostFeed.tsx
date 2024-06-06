@@ -1,9 +1,15 @@
 import { IPostDocument } from '@/mongodb/models/post'
-import React from 'react'
+import React, { Key } from 'react'
+import Post from './Post'
+
 
 function PostFeed({posts}: {posts: IPostDocument[]}) {
   return (
-    <div>PostFeed</div>
+    <div>
+      {posts.map((post) => (
+        <Post key={post._id as Key} post={post} />
+      ))}
+    </div>
   )
 }
 
