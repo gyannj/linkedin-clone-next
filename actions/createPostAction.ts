@@ -38,7 +38,7 @@ const userDB: IUser = {
   //Upload the image if available
  try {
   if(image.size>0){
-    console.log("Uploading image to azure blob storage", image);
+    // console.log("Uploading image to azure blob storage", image);
 
     const accountName = process.env.AZURE_STORAGE_NAME;
     const sasToken= await generateSASToken();
@@ -69,6 +69,7 @@ const userDB: IUser = {
   
       imageUrl: image_url
   }
+  await Post.create(body);
   }else{
     const body= {
       user:userDB,

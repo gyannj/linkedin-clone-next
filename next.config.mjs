@@ -13,6 +13,10 @@ const nextConfig = {
           {
             protocol: 'https',
             hostname: 'linkedinclone.blob.core.windows.net',
+          },
+          {
+            protocol: 'https',
+            hostname: 'linkedinclonegyannext.blob.core.windows.net',
           }
         ],
       },
