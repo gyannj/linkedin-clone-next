@@ -1,8 +1,15 @@
 import PostForm from '@/components/PostForm'
 import UserInformation from '@/components/UserInformation'
+import connectDB from '@/mongodb/db';
+import { Post } from '@/mongodb/models/post';
+import { SignedIn } from '@clerk/nextjs';
 import React from 'react'
 
-function Home() {
+export const revalidate = 0;
+
+async function Home() {
+  await connectDB();
+  const posts = Post.getAllPosts();
   return (
    <div className='grid grid-cols-8 mt-5 sm:px-5'>
     
@@ -13,8 +20,12 @@ function Home() {
     
     
     <section className='col-span-full md:col-span-6 xl:col-span-4 xl:max-w-xl mx-auto w-full'>
+      <SignedIn>
       {/* POST FORM */}
+
       <PostForm/>
+
+      </SignedIn>
       {/* POST FEED */}
       
     </section>
