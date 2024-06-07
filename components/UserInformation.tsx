@@ -3,13 +3,23 @@ import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { SignInButton, SignedIn, SignedOut } from '@clerk/nextjs';
 import { Button } from './ui/button';
-import { Sign } from 'crypto';
+import { IPostDocument } from '@/mongodb/models/post';
 
-async function UserInformation() {
+async function UserInformation({posts}: {posts: IPostDocument[]}) {
     const user = await currentUser();
     const firstName = user?.firstName;
     const lastName = user?.lastName;
-    const img = user?.imageUrl;
+    const imageUrl = user?.imageUrl;
+
+    const userPosts = posts?.filter((post) => post.user.userId === user?.id);
+
+    const userComments = posts?.flatMap(
+        (post) =>
+          post?.comments?.filter((comment) => comment.user.userId === user?.id) ||
+          []
+      );
+      console.log(userComments)
+            
     return (
         <div className='flex flex-col p-1 justify-center items-center bg-white mr-6 rounded-lg border-py-4'>
             <Avatar>
@@ -48,15 +58,15 @@ async function UserInformation() {
             <hr className='w-full border-gray-200 my-5'/>
 
             <div className="flex justify-between w-full px-4 text-sm">
-                <p className="font-semibold text-gray-400">Posts</p>
-                <p className="text-blue-400">0</p>
-            </div>
-            <div className="flex justify-between w-full px-4 text-sm">
-                <p className="font-semibold text-gray-400">Comments</p>
-                <p className="text-blue-400">0</p>
-            </div>
+        <p className="font-semibold text-gray-400">Posts</p>
+        <p className="text-blue-400">{userPosts.length}</p>
+      </div>
 
-            
+      <div className="flex justify-between w-full px-4 text-sm">
+        <p className="font-semibold text-gray-400">Comments</p>
+        <p className="text-blue-400">{userComments.length}</p>
+      </div>
+
         </div>
     )
 }

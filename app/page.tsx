@@ -16,7 +16,7 @@ async function Home() {
     
     <section className='hidden md:col-span-2 md:inline'>
       {/* UserInfo */}
-      <UserInformation />
+      <UserInformation posts = {posts}/>
     </section>
     
     
