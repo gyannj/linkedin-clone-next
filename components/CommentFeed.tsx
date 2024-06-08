@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs"
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import ReactTimeago from "react-timeago";
+import { cp } from "fs";
 function CommentFeed({ post }: { post: IPostDocument }) {
 
     const { user } = useUser()
@@ -12,7 +13,7 @@ function CommentFeed({ post }: { post: IPostDocument }) {
     return (
         <div className="space-y-2 mt-3">
             {post.comments?.map((comment) => (
-                <div key={comment._id} className="p-1">
+                <div key={comment.user.userId} className="p-1">
                     <Avatar>
                         <AvatarImage src={comment.user.userImage} alt={comment.user.firstName} />
                         <AvatarFallback>
