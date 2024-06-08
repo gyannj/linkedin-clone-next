@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { ImageIcon, XIcon } from 'lucide-react';
 import { Button } from './ui/button';
 import createPostAction from '@/actions/createPostAction';
+import { toast } from 'sonner';
 
 function PostForm() {
   const ref = useRef<HTMLFormElement>(null);
@@ -42,8 +43,13 @@ function PostForm() {
     <div className='mb-2'>
       <form ref={ref} action={(formData) => {
         //Handle form submission
-          handlePostAction(formData);
+         const promise= handlePostAction(formData);
         //Toast
+        toast.promise(promise, {
+          loading: "Creating post...",
+          success:"Post Created",
+          error: "Failed to create post"
+        })
 
       }} className='p-3 bg-white rounded-lg border'>
         <div className="flex items-center space-x-2">

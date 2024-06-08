@@ -14,7 +14,7 @@ function Header() {
             alt="logo" 
             width={40} 
             height={40}
-        />
+        />          
 
         <div className='flex-1'>
             <form className='flex items-center space-x-1 bg-gray-100 p-2 rounded-md flex-1 mx-2 max-w-96'>

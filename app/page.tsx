@@ -1,6 +1,7 @@
 import PostFeed from '@/components/PostFeed';
 import PostForm from '@/components/PostForm'
 import UserInformation from '@/components/UserInformation'
+import Widgets from '@/components/Widgets';
 import connectDB from '@/mongodb/db';
 import { Post } from '@/mongodb/models/post';
 import { SignedIn } from '@clerk/nextjs';
@@ -36,6 +37,7 @@ async function Home() {
 
     <section className='hidden xl:inline justify-center col-span-2'>
       {/* Widgets  */}
+      <Widgets/>
 
     </section>
    </div>

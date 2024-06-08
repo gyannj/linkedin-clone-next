@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs"
 import { useRef } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import createCommentAction from "@/actions/createCommentAction"
+import { toast } from "sonner"
 
 function CommentForm({ postId }: { postId: any }) {
     const { user } = useUser()
@@ -25,6 +26,11 @@ function CommentForm({ postId }: { postId: any }) {
             ref={ref}
             action={(formData) => {
                 const promise= handleCommentAction(formData);
+                toast.promise(promise,{
+                    loading:"Posting comment...",
+                    success:"Comment posted",
+                    error:"Failed to post comment"
+                })
 
             }}
             className="flex items-center space-x-1"

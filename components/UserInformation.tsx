@@ -18,7 +18,7 @@ async function UserInformation({posts}: {posts: IPostDocument[]}) {
           post?.comments?.filter((comment) => comment.user.userId === user?.id) ||
           []
       );
-      console.log(userComments)
+    
             
     return (
         <div className='flex flex-col p-1 justify-center items-center bg-white mr-6 rounded-lg border-py-4'>
