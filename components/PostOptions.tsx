@@ -11,6 +11,7 @@ import { UnlikePostRequestBody } from '@/app/api/posts/[post_id]/unlike/route';
 import { set } from 'mongoose';
 import CommentFeed from './CommentFeed';
 import CommentForm from './CommentForm';
+import { toast } from 'sonner';
 
 function PostOptions({ post }: { post: IPostDocument }) {
     const [isCommentsOpen, setIsCommentOpen] = useState(false);
@@ -27,6 +28,7 @@ function PostOptions({ post }: { post: IPostDocument }) {
 
     const likeOrUnlikePost = async () => {
         if (!user?.id) {
+            // toast.error("Sign In to like/unlike")
             throw new Error("User not authenticated");
         }
 
@@ -92,7 +94,13 @@ function PostOptions({ post }: { post: IPostDocument }) {
                 <Button
                     variant="ghost"
                     className='postButton'
-                    onClick={likeOrUnlikePost}
+                    onClick={()=>{
+                        const promise =likeOrUnlikePost();
+                        toast.promise(promise,{
+                           
+                            error:"Sign in to like/unlike"
+                        })
+                    }}
                 >
                     <ThumbsUpIcon className={cn("mr-1", liked && "text-[#4881c2] fill-[#4881c2]")} />
                     Like
