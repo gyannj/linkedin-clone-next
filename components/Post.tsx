@@ -57,7 +57,7 @@ function Post({ post }: { post: IPostDocument }) {
                 toast.promise(promise,{
                   loading:"Deleting post...",
                   success: "Post deleted",
-                  error: "Failed to delete post";
+                  error: "Failed to delete post"
                 })
               }}
               >
