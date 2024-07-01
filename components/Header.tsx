@@ -10,10 +10,10 @@ function Header() {
     <div className='flex items-center max-w-6xl mx-auto p-2'>
         <Image 
             className="rounded-lg" 
-            src="https://links.papareact.com/b3z" 
+            src="/logo_test.png" 
             alt="logo" 
-            width={40} 
-            height={40}
+            width={150} 
+            height={60}
         />          
 
         <div className='flex-1'>
