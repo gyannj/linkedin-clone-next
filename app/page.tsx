@@ -13,34 +13,22 @@ async function Home() {
   await connectDB();
   const posts = await Post.getAllPosts();
   return (
-   <div className='grid grid-cols-8 mt-5 sm:px-5'>
-    
-    <section className='hidden md:col-span-2 md:inline'>
-      {/* UserInfo */}
-      <UserInformation posts = {posts}/>
+    <div className="grid grid-cols-8 mt-5 sm:px-5">
+    <section className="hidden md:inline md:col-span-2">
+      <UserInformation posts={posts} />
     </section>
-    
-    
-    <section className='col-span-full md:col-span-6 xl:col-span-4 xl:max-w-xl mx-auto w-full'>
+
+    <section className="col-span-full md:col-span-6 xl:col-span-4 xl:max-w-xl mx-auto w-full">
       <SignedIn>
-      {/* POST FORM */}
-
-      <PostForm/>
-
+        <PostForm />
       </SignedIn>
-      {/* POST FEED */}
-
-      <PostFeed posts={posts}/>
-      
+      <PostFeed posts={posts} />
     </section>
 
-
-    <section className='hidden xl:inline justify-center col-span-2'>
-      {/* Widgets  */}
-      <Widgets/>
-
+    <section className="hidden xl:inline justify-center col-span-2">
+      <Widgets />
     </section>
-   </div>
+  </div>
   )
 }
 

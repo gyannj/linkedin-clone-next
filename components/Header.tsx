@@ -10,10 +10,10 @@ function Header() {
     <div className='flex items-center max-w-6xl mx-auto p-2'>
         <Image 
             className="rounded-lg" 
-            src="/logo_test.png" 
+            src="/new_logo.jpg" 
             alt="logo" 
-            width={150} 
-            height={60}
+            width={40} 
+            height={40}
         />          
 
         <div className='flex-1'>
